@@ -65,20 +65,6 @@ struct Eval {
 	Eval(T scal, Vect<T> vec, bool isScal, bool isVec) : scal(scal), vec(vec), isScal(isScal), isVec(isVec) {};
 };
 
-/*
-
-static Vect operator*(const T &lhs, const Vect &rhs) {
-return Vect(lhs * rhs.x, lhs * rhs.y);
-};
-
-
-template <typename T>
-static Vect operator*(const T &lhs, const Vect<T> &rhs) {
-return Vect(lhs * rhs.x, lhs * rhs.y);
-}
-
-*/
-
 
 vector<string> getTokens(const string &input) {
 	vector<string> tokens;
@@ -202,38 +188,8 @@ int main() {
 	string inputs = "";
 	unordered_map < string, Vect<int>> vects;
 	vects.clear();
-	/*
-	get vectors for container
-	1. Get entire line
-	2. Split line into three parts:
-	a. name of vector
-	b. x coordinate
-	c. y coordinate
-	3. Place components into the container
-	a. Use an unordered map with the key being the name of the vector and the value being the x and y coordinates using structs.
 
-
-	*/
-
-	/*
-	CREATION OF POST FIX STRING
-
-	pf = post fix string
-	s = stack
-	1. Go through all chars in input
-	2. If i is an operand, append to postfix string
-	3. If i is an operator do the following
-	while(!s.empty()&& !( && Has HigherPrec{
-	pf.append(s.pop())
-	}
-	s.push(i);
-	4. If i is (
-	s.push(i);
-	5. If i is )
-	while(!s.empty() && !s.top() == (
-	pf.append(s.pop())
-	*/
-
+	//get vectors from input
 	while (true) {
 		getline(cin, inputs);
 		if (inputs.find("=") == string::npos) {
@@ -302,6 +258,7 @@ int main() {
 				postfix += tokens.top();
 				tokens.pop();
 			}
+			//evaluate postfix
 			stack<Eval<int>> operands;
 			output = "";
 			for (char c : postfix) {
@@ -354,26 +311,8 @@ int main() {
 				}
 			}
 			cout << output + "\n";
-			/*
-			postfix evaluation.
-
-			1. Initialize Values Stack
-			2. Go through the postfix string
-			3. If the character is a scalar, add to the stack
-			4. If the character is a vector, add to the stack
-			5. if the character is a operator:
-			1. TempVal = stack.pop();
-			2. resultval = stack.top() operator TempVal
-			3. stack.pop();
-			4. stack.push(resultVal);
-			*/
-
-			//http://csis.pace.edu/~wolf/CS122/infix-postfix.htm
 
 
-
-			//special case : things like 3(a+b)
-			//https://en.wikipedia.org/wiki/Shunting-yard_algorithm
 		}
 		else {
 			break;
